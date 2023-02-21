@@ -1,5 +1,5 @@
 import express from 'express';
-import configViewEngine from './configs/viewEngine.js';
+import configViewEngine from './config/viewEngine.js';
 import initWebRoute from './route/web.js';
 import initAPIRoute from './route/api.js';
 import morgan from 'morgan';

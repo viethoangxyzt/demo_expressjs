@@ -1,5 +1,5 @@
-import pool from "../configs/connectDB.js";
-import multer from 'multer';
+import pool from "../config/connectDB.js";
+
 
 let getHomepage = async (req, res) => {
     const [rows, fields] = await pool.execute('SELECT * FROM users');

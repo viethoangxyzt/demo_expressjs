@@ -1,4 +1,4 @@
-import pool from '../configs/connectDB.js';
+import pool from '../config/connectDB.js';
 
 let getAllUsers = async (req, res) => {
     //http
