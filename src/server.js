@@ -1,44 +1,33 @@
-import express from 'express';
-import configViewEngine from './config/viewEngine.js';
-import initWebRoute from './route/web.js';
-import initAPIRoute from './route/api.js';
-import morgan from 'morgan';
-import dotenv from 'dotenv';
-dotenv.config();
+require('dotenv').config();
+import express from "express";
+import configViewEngine from "./config/viewEngine";
+import initRoutes from "./routes/web";
+import bodyParser from "body-parser";
+// import cookieParser from 'cookie-parser';
+// import flash from 'connect-flash';
+// import methodOverride from 'method-override';
+// import passPort from "passport";
+// import session from "./config/session";
 
 
+let app = express();
+// app.use(methodOverride('_method'));
+// app.use(cookieParser('secret'));
 
+// app.use(flash());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({extended: true}));
 
-const app = express();
-const port = process.env.PORT || 8080;
+//config session
+// session.configSession(app);
 
-app.use((req, res, next) => {
-    //check => return res.send()
-    console.log('>>> run into my middleware')
-    console.log(req.method)
-    next();
-})
-
-app.use(morgan('combined'))
-
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
-// setup view engine
 configViewEngine(app);
 
-//init web route
-initWebRoute(app);
+// config Passportjs
+// app.use(passPort.initialize());
+// app.use(passPort.session());
 
-// init api route
-initAPIRoute(app);
+initRoutes(app);
 
-//handle 404 not found
-app.use((req, res) => {
-    return res.render('404.ejs')
-})
-
-
-app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
-})
+let port = process.env.PORT;
+app.listen(port || 8080, () => console.log(`Doctors care app is running on port ${port}!`));
